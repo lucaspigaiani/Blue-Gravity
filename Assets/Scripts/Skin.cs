@@ -6,19 +6,24 @@ public class Skin : ScriptableObject
     public string label;
     public Sprite[] sprite;
     public int value;
-    public SkinCategory category;
+    public SkinCategory[] category;
 }
 
 public enum SkinCategory
 {
-    Boot,
-    Elbow,
+    Boot_l,
+    Boot_r,
+    Elbow_l,
+    Elbow_r,
     Face,
     Hood,
-    Leg,
+    Leg_l,
+    Leg_r,
     Pelvis,
-    Shoulder,
+    Shoulder_l,
+    Shoulder_r,
     Torso,
-    Wrist,
+    Wrist_l,
+    Wrist_r,
     Other
 }
