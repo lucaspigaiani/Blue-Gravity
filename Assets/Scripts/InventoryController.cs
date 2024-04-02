@@ -7,10 +7,15 @@ public class InventoryController : MonoBehaviour
 {
 
     public int inventoryCapacity = 10; // Maximum capacity of the inventory
-    private List<Skin> inventory = new List<Skin>(); // List to store items in the inventory
+    public List<Skin> inventory = new List<Skin>(); // List to store items in the inventory
 
     public GameObject inventoryPanel; // Reference to the inventory panel
     public GameObject inventoryButtonPrefab; // Prefab for inventory buttons
+
+    private void Start()
+    {
+        UpdateInventoryUI();
+    }
 
     public bool CanAddItem()
     {
@@ -20,6 +25,11 @@ public class InventoryController : MonoBehaviour
     public void AddItem(Skin item)
     {
         inventory.Add(item);
+    }
+
+    public void RemoveItem(Skin item) 
+    {
+        inventory.Remove(item);
     }
 
     public void UpdateInventoryUI()

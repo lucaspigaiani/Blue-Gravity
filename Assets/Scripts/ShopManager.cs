@@ -46,12 +46,8 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-  
-
     public void SellItem(Skin item)
     {
         playerMoneyController.SellItem(item);
     }
-
-
 }
