@@ -10,7 +10,7 @@ Welcome to the Blue Gravity Task project! This Unity game allows players to buy/
 
 ### Installation
 
-1. Clone the repository: `git clone https://github.com/yourusername/blue-gravity-task.git`
+1. Clone the repository: `git clone https://github.com/lucaspigaiani/Blue-Gravity.git`
 2. Open the project in Unity.
 
 ## Usage
