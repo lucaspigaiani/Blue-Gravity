@@ -8,7 +8,7 @@ public class ShopManager : MonoBehaviour
     public PlayerMoneyController playerMoneyController;
     public InventoryController inventoryController;
 
-    private List<Skin> inventory = new List<Skin>(); // List to store bought items
+    private DialogBoxManager dialogBoxManager;
 
     private void Awake()
     {
@@ -17,6 +17,7 @@ public class ShopManager : MonoBehaviour
 
     private void Start()
     {
+        dialogBoxManager = GameObject.FindGameObjectWithTag("DialogBoxManager").GetComponent<DialogBoxManager>();
     }
 
     public void BuyItem(Skin item)
@@ -30,24 +31,17 @@ public class ShopManager : MonoBehaviour
                 // Add the item to the inventory
                 inventoryController.AddItem(item);
 
-                // Add the item to the inventory list
-                inventory.Add(item);
 
                 inventoryController.UpdateInventoryUI();
             }
             else
             {
-                Debug.Log("Inventory is full!");
+                dialogBoxManager.ShowDialogBox("Inventory is full!");
             }
         }
         else
         {
             Debug.LogError("InventoryController reference not set.");
         }
-    }
-
-    public void SellItem(Skin item)
-    {
-        playerMoneyController.SellItem(item);
     }
 }

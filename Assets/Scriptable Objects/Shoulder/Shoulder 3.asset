@@ -17,4 +17,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 805906b1206aa944b99385aa2c600d2f, type: 3}
   - {fileID: 21300000, guid: 9fe981f3e80b99e429e4399b985d07f4, type: 3}
   value: 100
+  icon: {fileID: 21300000, guid: 4f0cbe823f1d32841913c007a05f7faa, type: 3}
   category: 090000000a000000

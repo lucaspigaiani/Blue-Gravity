@@ -15,7 +15,8 @@ public class DialogBoxManager : MonoBehaviour
 
     private Color originalColor = Color.white;
     private Color transparentColor = new Color(1f, 1f, 1f, 0f);
-    private bool isFading = false;
+
+    private Coroutine currentCoroutine;
 
     private void Start()
     {
@@ -25,13 +26,18 @@ public class DialogBoxManager : MonoBehaviour
 
     public void ShowDialogBox(string message)
     {
+        // Stop any running coroutines before starting a new one
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+        }
+
         messageText.text = message;
         dialogBox.SetActive(true);
-        isFading = true;
-        StartCoroutine(FadeIn());
+        currentCoroutine = StartCoroutine(FadeInAndOut());
     }
 
-    private IEnumerator FadeIn()
+    private IEnumerator FadeInAndOut()
     {
         float elapsedTime = 0f;
 
@@ -57,17 +63,9 @@ public class DialogBoxManager : MonoBehaviour
         dialogBox.GetComponent<Image>().color = originalColor;
         messageText.color = Color.white;
 
-        isFading = false;
-
         yield return new WaitForSeconds(displayTime);
 
-        isFading = true;
-        StartCoroutine(FadeOut());
-    }
-
-    private IEnumerator FadeOut()
-    {
-        float elapsedTime = 0f;
+        elapsedTime = 0f;
 
         while (elapsedTime < fadeOutDuration)
         {
@@ -91,14 +89,12 @@ public class DialogBoxManager : MonoBehaviour
         dialogBox.GetComponent<Image>().color = transparentColor;
         messageText.color = transparentColor;
 
-        isFading = false;
+        // Hide the dialog box after fading out
+        HideDialogBox();
     }
 
     public void HideDialogBox()
     {
-        StopAllCoroutines();
-        dialogBox.GetComponent<Image>().color = transparentColor;
-        messageText.color = transparentColor;
         dialogBox.SetActive(false);
     }
 }

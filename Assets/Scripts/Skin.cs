@@ -6,6 +6,7 @@ public class Skin : ScriptableObject
     public string label;
     public Sprite[] sprite;
     public int value;
+    public Sprite icon;
     public SkinCategory[] category;
 }
 
