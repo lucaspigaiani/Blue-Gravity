@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23297ce2e1c88854fbc4369da4cd503f, type: 3}
+  m_Name: Pelvis 3
+  m_EditorClassIdentifier: 
+  label: Pelvis3
+  sprite:
+  - {fileID: 21300000, guid: 0c6412d95175c2b40bd9a27f7d1fa096, type: 3}
+  value: 100
+  icon: {fileID: 21300000, guid: 874edb927e278234698fef63123bd68f, type: 3}
+  category: 08000000

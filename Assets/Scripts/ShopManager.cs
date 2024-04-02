@@ -10,6 +10,10 @@ public class ShopManager : MonoBehaviour
 
     private DialogBoxManager dialogBoxManager;
 
+    public Skin[] storeItems;
+    public GameObject shopButtonPrefab;
+    public GameObject storeContent;
+
     private void Awake()
     {
         Instance = this;
@@ -18,6 +22,22 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         dialogBoxManager = GameObject.FindGameObjectWithTag("DialogBoxManager").GetComponent<DialogBoxManager>();
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        for (int i = 0; i < storeItems.Length; i++)
+
+        {  // Instantiate the prefab associated with ShopButton component
+            GameObject buttonGO = Instantiate(shopButtonPrefab, storeContent.transform);
+
+            // Get the ShopButton component from the instantiated GameObject
+            ShopButton newItem = buttonGO.GetComponent<ShopButton>();
+
+            // Set the item for the ShopButton
+            newItem.item = storeItems[i];
+        }
     }
 
     public void BuyItem(Skin item)

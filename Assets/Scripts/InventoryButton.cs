@@ -4,7 +4,7 @@ using TMPro;
 
 public class InventoryButton : MonoBehaviour
 {
-    private Skin item;
+    public Skin item;
     private ClothesChanger clothesChanger;
     private PlayerMoneyController playerMoneyController;
     private InventoryController inventoryController;

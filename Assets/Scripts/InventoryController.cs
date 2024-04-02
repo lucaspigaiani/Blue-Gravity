@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
-
     public int inventoryCapacity = 10; // Maximum capacity of the inventory
     public List<Skin> inventory = new List<Skin>(); // List to store items in the inventory
 

@@ -11,7 +11,7 @@ public class PlayerMoneyController : MonoBehaviour
 
     private void UpdateMoneyDisplay()
     {
-        moneyText.text = "Money: " + playerMoney.ToString(); // Update the displayed money amount
+        moneyText.text = playerMoney.ToString(); // Update the displayed money amount
     }
 
     public void BuyItem(Skin skin)

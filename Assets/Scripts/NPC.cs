@@ -9,28 +9,34 @@ public class NPC : MonoBehaviour
     public string[] messages; // Array of messages to choose from
 
     private DialogBoxManager dialogBoxManager;
+    private Transform playerTransform; // Reference to the player's transform
+    public float interactionRange = 3f; // Maximum interaction range between player and NPC
 
     public PanelController shopManager;
     public PanelController inventoryController;
     public float displayTime = 3f; // Time in seconds to display the dialog box
     private bool isDialogActive = false;
 
-
     private void Start()
     {
         dialogBoxManager = GameObject.FindGameObjectWithTag("DialogBoxManager").GetComponent<DialogBoxManager>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform; 
     }
 
     private void OnMouseDown()
     {
-        if (!isDialogActive && dialogBoxManager != null && messages.Length > 0 && !shopManager.panel.activeInHierarchy && !inventoryController.panel.activeInHierarchy)
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        if (distanceToPlayer <= interactionRange)
         {
-            int randomIndex = Random.Range(0, messages.Length); // Generate a random index
-            string randomMessage = messages[randomIndex]; // Get a random message from the array
-            dialogBoxManager.ShowDialogBox(randomMessage);
-            isDialogActive = true;
-            shopManager.TogglePanel();
-            Invoke(nameof(ResetDialogState), displayTime);
+            if (!isDialogActive && dialogBoxManager != null && messages.Length > 0 && !shopManager.panel.activeInHierarchy && !inventoryController.panel.activeInHierarchy)
+            {
+                int randomIndex = Random.Range(0, messages.Length); // Generate a random index
+                string randomMessage = messages[randomIndex]; // Get a random message from the array
+                dialogBoxManager.ShowDialogBox(randomMessage);
+                isDialogActive = true;
+                shopManager.TogglePanel();
+                Invoke(nameof(ResetDialogState), displayTime);
+            }
         }
     }
 
