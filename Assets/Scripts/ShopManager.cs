@@ -4,32 +4,38 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public static ShopManager Instance;
-    public PlayerMoneyController playerMoneyController;
-    public InventoryController inventoryController;
+    public static ShopManager Instance; // Static reference to the shop manager instance
+    public PlayerMoneyController playerMoneyController; // Reference to the player's money controller
+    public InventoryController inventoryController; // Reference to the inventory controller
 
-    private DialogBoxManager dialogBoxManager;
+    private DialogBoxManager dialogBoxManager; // Reference to the dialog box manager
 
-    public Skin[] storeItems;
-    public GameObject shopButtonPrefab;
-    public GameObject storeContent;
+    public Skin[] storeItems; // Array of store items
+    public GameObject shopButtonPrefab; // Prefab for the shop button
+    public GameObject storeContent; // Reference to the store content panel
 
+    // Singleton pattern to ensure only one instance of ShopManager exists
     private void Awake()
     {
         Instance = this;
     }
 
+    // Initialization
     private void Start()
     {
+        // Find and store references to other managers
         dialogBoxManager = GameObject.FindGameObjectWithTag("DialogBoxManager").GetComponent<DialogBoxManager>();
+
+        // Initialize the shop
         Initialize();
     }
 
+    // Initialize the shop by instantiating shop buttons for each store item
     private void Initialize()
     {
         for (int i = 0; i < storeItems.Length; i++)
-
-        {  // Instantiate the prefab associated with ShopButton component
+        {
+            // Instantiate the shop button prefab and set its parent to the store content panel
             GameObject buttonGO = Instantiate(shopButtonPrefab, storeContent.transform);
 
             // Get the ShopButton component from the instantiated GameObject
@@ -40,28 +46,37 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    // Method to handle buying an item from the shop
     public void BuyItem(Skin item)
     {
-        if (inventoryController != null && playerMoneyController.CheckMoney(item))
+        if (inventoryController != null)
         {
-            if (inventoryController.CanAddItem())
+            // Check if the player has enough money to buy the item
+            if (playerMoneyController.CheckMoney(item))
             {
-                playerMoneyController.BuyItem(item);
+                // Check if the inventory has space to add the item
+                if (inventoryController.CanAddItem())
+                {
+                    // Deduct the item price from the player's money
+                    playerMoneyController.BuyItem(item);
 
-                // Add the item to the inventory
-                inventoryController.AddItem(item);
+                    // Add the item to the inventory
+                    inventoryController.AddItem(item);
 
-
-                inventoryController.UpdateInventoryUI();
+                    // Update the inventory UI
+                    inventoryController.UpdateInventoryUI();
+                }
+                else
+                {
+                    // Show a message if the inventory is full
+                    dialogBoxManager.ShowDialogBox("Inventory is full!");
+                }
             }
             else
             {
-                dialogBoxManager.ShowDialogBox("Inventory is full!");
+                // Show a message if the player has insufficient funds
+                dialogBoxManager.ShowDialogBox("Insufficient funds!");
             }
-        }
-        else
-        {
-            Debug.LogError("InventoryController reference not set.");
         }
     }
 }

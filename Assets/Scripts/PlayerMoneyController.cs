@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class PlayerMoneyController : MonoBehaviour
@@ -34,7 +33,6 @@ public class PlayerMoneyController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Insufficient funds!"); // Output a message if the player doesn't have enough money
             return false;
         }
     }

@@ -4,29 +4,45 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    public List<string> messages = new List<string>(); // List of messages to display when the collectible is clicked
-    public float interactionRange = 3f; // Maximum interaction range between player and item
+    // List of messages to display when the collectible is clicked
+    public List<string> messages = new List<string>();
+
+    // Maximum interaction range between player and item
+    public float interactionRange = 3f;
+
+    // References to panel controllers
     public PanelController shopManager;
     public PanelController inventoryController;
 
-    private DialogBoxManager dialogBoxManager; // Reference to the dialog box manager
-    private Transform playerTransform; // Reference to the player's transform
+    // Reference to the dialog box manager
+    private DialogBoxManager dialogBoxManager;
 
+    // Reference to the player's transform
+    private Transform playerTransform;
 
+    // Start is called before the first frame update
     private void Start()
     {
         // Find and store a reference to the dialog box manager
         dialogBoxManager = GameObject.FindGameObjectWithTag("DialogBoxManager").GetComponent<DialogBoxManager>();
+
+        // Find and store a reference to the player's transform
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    // Called when the mouse button is clicked on the object
     private void OnMouseDown()
     {
+        // Check if neither the shop nor inventory panel are active
         if (!shopManager.panel.activeInHierarchy && !inventoryController.panel.activeInHierarchy)
         {
+            // Calculate the distance between the collectible and the player
             float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+            // Check if the player is within interaction range
             if (distanceToPlayer <= interactionRange)
             {
+                // Check if there are messages to display
                 if (messages.Count > 0)
                 {
                     // Select a random message from the list
@@ -37,6 +53,5 @@ public class Collectible : MonoBehaviour
                 }
             }
         }
-        
     }
 }
